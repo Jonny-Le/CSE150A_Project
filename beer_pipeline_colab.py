@@ -1,28 +1,10 @@
-# Beer-Liking Prediction Pipeline (Downloadable .ipynb)
-
-*This notebook follows the Milestone 2 structure: Data Prep, Modeling, Evaluation.*
-
-```python
-# %matplotlib inline
-```
-
-*This notebook follows the Milestone 2 structure: Data Prep, Modeling, Evaluation.*
-
-```python
-# %matplotlib inline
-```
- (Colab Script)
-
-# 1. Setup & Imports
-# ------------------
-# Install pgmpy if needed
-# !pip install pgmpy
-
+import math
+import numpy as py
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-from pgmpy.models import BayesianModel
-from pgmpy.estimators import MaximumLikelihoodEstimator
+#from sklearn.model_selection import train_test_split
+#from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+#from pgmpy.models import BayesianModel
+#from pgmpy.estimators import MaximumLikelihoodEstimator
 
 
 # 2. Data Loading & Preprocessing
@@ -30,23 +12,18 @@ from pgmpy.estimators import MaximumLikelihoodEstimator
 from sklearn.preprocessing import LabelEncoder
 
 def load_and_clean_data(beers_path, ratings_path, like_threshold=3.5):
-    """
-    Load beer attributes and ratings, merge, drop NAs, binarize ratings, encode categorical features.
-    """
-    # Load CSVs
-    beers = pd.read_csv(beers_path)
-    ratings = pd.read_csv(ratings_path)
-    # Merge on 'beer_id'
-    df = pd.merge(beers, ratings, on='beer_id', how='inner')
-    # Drop missing values in key columns
-    df = df.dropna(subset=['abv', 'ibu', 'ounces', 'style', 'rating_score']).reset_index(drop=True)
-    # Binarize ratings into 'Like' / 'Dislike'
-    df['Like'] = (df['rating_score'] >= like_threshold).astype(int)
-    # Encode 'style' as numeric
-    le = LabelEncoder()
-    df['Style_enc'] = le.fit_transform(df['style'])
-    return df, le
+    og_df = pd.read_csv(beers_path)
+        cleaned_df = og_df.copy().drop("rating")
+        cleaned_df["bin_rating"] = 0
+        for i  in range(len(og_df)):
+            rating = og_df.iloc[i]["rating"]
+            if rating >= like_threshold:
+                cleaned_df.at[i,"bin_rating"] = 1
+            else:
+                cleaned_df.at[i, "bin_rating"] = 0
+        return cleaned_df
 
+load_and_clean_data
 # Example usage:
 # df, style_encoder = load_and_clean_data('beers.csv', 'ratings.csv')
 
