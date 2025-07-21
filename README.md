@@ -29,7 +29,7 @@
 
 Code development will occur in a Jupyter Notebook (`.ipynb`). Below is a phased plan for Milestone 2 and beyond.
 
-### Phase 1: Project Kick-off & Data Design (1 week)
+### Phase 1: Project Kick-off & Data Design 
 **Goals:**
 1. Define the “best-beer-of-the-day” problem.
 2. Specify all features, including contextual ones (e.g., ABV, IBU).
@@ -41,7 +41,7 @@ Code development will occur in a Jupyter Notebook (`.ipynb`). Below is a phased 
 
 ---
 
-### Phase 2: Data Collection & Preprocessing (2 weeks)
+### Phase 2: Data Collection & Preprocessing 
 **Goals:**
 1. Gather and clean all datasets.
 2. Engineer contextual features for “today.”
@@ -62,7 +62,7 @@ Code development will occur in a Jupyter Notebook (`.ipynb`). Below is a phased 
 
 ---
 
-### Phase 3: Model Development and Training (2 weeks)
+### Phase 3: Model Development and Training 
 **Goals:**
 1. Implement the Hidden-Markov-Model (HMM) recommendation pipeline.
 2. Validate inference of today’s best beer.
@@ -154,7 +154,7 @@ For the beer recommendation system, it would get better results with:
 
 ---
 
-### Phase 4: Evaluation & Iteration (1 week)
+### Phase 4: Evaluation & Iteration 
 **Goals:**
 1. Measure recommendation quality.
 2. Identify and address weaknesses.
@@ -171,7 +171,7 @@ For the beer recommendation system, it would get better results with:
 
 ---
 
-### Phase 5: Simple UI & Demo (1 week)
+### Phase 5: Simple UI & Demo 
 **Goals:**
 1. Build minimal interface (CLI or Streamlit).
 
