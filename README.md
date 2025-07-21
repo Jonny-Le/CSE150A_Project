@@ -1,4 +1,4 @@
-# Project Title
+# CSE150A Group Project : Beer Data
 
 **Team Members:**
 - Alexander Tatoian (PID: A18508705)
