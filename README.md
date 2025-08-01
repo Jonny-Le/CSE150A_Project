@@ -258,6 +258,9 @@ print(f"Model trained successfully with {accuracy:.3f} test accuracy")
 - **F1-Score**: 74.9% (balanced precision/recall)
 
 **Confusion Matrix Analysis:**
+
+![Confusion Matrix Heatmap](confusion_matrix.png)
+
 ```
 Confusion Matrix (482 test samples):
                 Predicted
