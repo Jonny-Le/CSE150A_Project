@@ -1,5 +1,6 @@
 # Beer Recommendation System - CSE150A Project
 
+
 **Team Members:**
 - Alexander Tatoian (PID: A18508705)
 - Jonny Le (PID: A16873166)
@@ -64,7 +65,6 @@ df_processed['ibu_filled'] = df_processed['ibu'].fillna(df_processed['ibu'].medi
 # Create categorical features
 df_processed['abv_category'] = pd.cut(df_processed['abv_filled'], 
                                      bins=[0, 0.045, 0.065, 0.085, 1.0])
-
 # Engineer reputation features
 brewery_avg = df_processed.groupby('brewery_id')['rating'].mean()
 df_processed['brewery_reputation'] = df_processed['brewery_id'].map(brewery_avg)
@@ -101,6 +101,7 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 
 ### Problem Definition & Approach
 
+
 **Core Problem**: Predict individual beer preferences in a domain with high subjective variability and sparse user data.
 
 **Why Probabilistic Modeling Makes Sense:**
@@ -127,6 +128,76 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 - **Rationale**: Handles mixed continuous/categorical features, fast training, probabilistic output
 - **Trade-offs**: Assumes feature independence, may miss interaction effects
 
+#### Conclusion 
+
+![HEAT MAP FOR BEER RATING](image.png)
+Looking at the HMM model I provided, let me explain what it actually accomplishes and its limitations:
+
+##### What the Model Does:
+
+###### 1. **Beer Quality Classification**
+- Categorizes beers into 3 hidden states: Low_Quality, Medium_Quality, High_Quality
+- Based on features like ABV, IBU, and beer style
+- Uses a simple scoring system (not very sophisticated)
+
+###### 2. **Rating Prediction Framework**
+- Maps continuous ratings (0-5) to discrete bins: Poor, Fair, Good, Excellent
+- Learns probability distributions of ratings given quality states
+- Creates emission probabilities P(rating | quality)
+
+###### 3. **Basic Recommendations**
+- Filters beers by predicted quality state
+- Returns highest-rated beers within that quality category
+- Simple content-based filtering approach
+
+##### What It **Doesn't** Really Accomplish:
+
+###### 1. **Not True Sequential Modeling**
+- The transition matrix is artificially created using brewery groupings
+- Beer ratings don't naturally form sequences like speech or time series
+- **This is the biggest flaw** - HMMs are meant for sequential data
+
+###### 2. **Limited Feature Usage**
+- Only uses ABV, IBU, and style in a very basic way
+- Ignores brewery reputation, beer name, serving size effects
+- The quality scoring is overly simplistic
+
+###### 3. **No User Personalization**
+- Doesn't learn individual user preferences
+- Can't adapt to different taste profiles
+- One-size-fits-all recommendations
+
+##### What It Could Be Improved To Do:
+Better approach - treat beer tasting as a sequence:
+- User's beer journey: Light Lager → Pale Ale → IPA → Stout
+- Hidden states: User preference evolution
+- Observations: Their ratings of different beer types
+
+Or model brewery quality over time:
+- Hidden states: Brewery reputation (declining/stable/improving)
+- Observations: Beer ratings from that brewery
+- Transitions: How brewery quality changes over time
+
+
+
+##### Honest Assessment:
+This HMM is more of a **proof-of-concept** that demonstrates:
+- How to structure an HMM for a domain problem
+- Basic parameter learning from data
+- Simple recommendation logic
+
+But it's **not particularly effective** because:
+1. Beer recommendation isn't naturally a sequential problem
+2. A simple collaborative filtering or content-based approach would work better
+3. The model artificially forces sequential structure where none exists
+
+##### Better Alternative:
+For the beer recommendation system, it would get better results with:
+- **Content-based filtering** using beer features
+- **Collaborative filtering** if we had user-beer rating pairs  
+- **Hybrid approach** combining multiple signals
+- **Classification model** to predict if a user will like a beer
+
 ---
 
 ## Agent Setup, Data Preprocessing, Training Setup (15pts)
@@ -134,6 +205,7 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 ### Dataset Exploration & Variable Analysis
 
 **Feature Importance Hierarchy:**
+
 
 ```
 Primary Predictors (Direct Beer Characteristics)
