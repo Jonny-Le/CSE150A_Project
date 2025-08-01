@@ -14,7 +14,7 @@
 
 ### Dataset Description
 
-**Primary Features:**
+**What are the primary features of the dataset?:**
 - **Beer Characteristics**: 
   - `abv` (Alcohol by Volume): Continuous, 0.03-0.12 range
   - `ibu` (International Bitterness Units): Continuous, 0-200 range  
@@ -26,16 +26,12 @@
   - `rating`: User ratings on 0-5 scale
   - `bin_rating`: Binary classification target (liked ≥3.5, not liked <3.5)
 - **Engineered Features**: 
+  - `abv_filled`: Filled missing abv values with median for model training
+  - `ibu_filled`: Filled missing ibu values with median for model training
   - `brewery_reputation`: Average rating per brewery
   - `style_popularity`: Frequency count of each style
   - `abv_category_encoded`: Categorical ABV ranges (Low/Medium/High/Very High)
   - `ibu_category_encoded`: Categorical bitterness levels
-
-**Dataset Size & Processing:**
-- **2,410 beer records** after cleaning and preprocessing
-- **Training set**: 1,928 samples (80%)
-- **Test set**: 482 samples (20%)
-- Easily processable on standard hardware with fast training times
 
 **Data Source & Reliability:**
 - Beer review dataset from craft beer rating platforms
@@ -48,18 +44,18 @@
 - **Categorical**: Style, brewery_id, encoded categorical features (3 features)
 - **Mixed data types** requiring careful preprocessing for Naive Bayes
 
-**Tasks Accomplished:**
+**What task(s) can you accomplish with this data?:**
 1. **Binary Classification**: Predict beer preference (liked/not liked)
 2. **Personalized Recommendation**: Filter and rank beers by user preferences
 3. **Pattern Discovery**: Identify relationships between beer characteristics and ratings
 
-**Relevance to Probabilistic Modeling:**
+**Is the data relevant to probabilistic modeling?:**
 - **Inherent Uncertainty**: User taste preferences are subjective and probabilistic
 - **Bayesian Inference**: Learn patterns from historical ratings to predict future preferences  
 - **Feature Independence**: Reasonable first approximation that beer characteristics contribute independently
 - **Confidence Scores**: Probabilistic outputs provide recommendation confidence
 
-**Preprocessing Steps:**
+**How will you preprocess your data?:**
 ```python
 # Handle missing values
 df_processed['abv_filled'] = df_processed['abv'].fillna(df_processed['abv'].median())
