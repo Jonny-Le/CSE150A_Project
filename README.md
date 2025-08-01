@@ -283,11 +283,6 @@ Actual Not Liked    156      38    (80% correct negative prediction)
 - **Improvement over "always predict liked"**: +10% (meaningful gain)
 - **User Experience**: 3 out of 4 recommendations likely to satisfy user
 
-**Baseline Comparisons:**
-- **Random Guessing**: 50% accuracy
-- **Most Frequent Class**: ~65% accuracy (predict "liked" for all)
-- **Our Model**: 75% accuracy (**+10% improvement over naive baseline**)
-
 ### Visualizations
 
 **Generated visualizations include:**
