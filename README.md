@@ -11,7 +11,7 @@
 
 ---
 
-## Dataset (5pts)
+## Dataset
 
 ### Dataset Description
 
@@ -75,7 +75,7 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 
 ---
 
-## PEAS/Agent Analysis (10pts)
+## PEAS/Agent Analysis 
 
 ### PEAS Framework
 
@@ -124,83 +124,70 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 - **Implementation**: Naive Bayes classification on beer characteristics
 - **Limitation**: May miss complex feature interactions
 
-**Our Model Choice: Gaussian Naive Bayes**
+**Our Model Choice: Gaussian Naive-Bayes (GaussianNB)**
 - **Rationale**: Handles mixed continuous/categorical features, fast training, probabilistic output
 - **Trade-offs**: Assumes feature independence, may miss interaction effects
 
-## Conclusion 
+#### Conclusion of Model and Data Analysis 
 
 ![HEAT MAP FOR BEER RATING](image.png)
-Looking at the HMM model I provided, let me explain what it actually accomplishes and its limitations:
+Looking at the model I provided, let me explain what it actually accomplishes and its limitations:
 
 ##### What the Model Does:
 
-###### 1. **Beer Quality Classification**
-- Categorizes beers into 3 hidden states: Low_Quality, Medium_Quality, High_Quality
-- Based on features like ABV, IBU, and beer style
-- Uses a simple scoring system (not very sophisticated)
+###### 1. **Binary Beer Preference Classification**
+- Predicts whether a user will like a beer (rating ≥ 3.5) or not (rating < 3.5)
+- Uses probabilistic approach with Bayes' theorem
+- Handles mixed continuous and categorical features effectively
 
-###### 2. **Rating Prediction Framework**
-- Maps continuous ratings (0-5) to discrete bins: Poor, Fair, Good, Excellent
-- Learns probability distributions of ratings given quality states
-- Creates emission probabilities P(rating | quality)
+###### 2. **Feature-Based Recommendation**
+- Learns patterns from beer characteristics: ABV, IBU, style, brewery reputation
+- Applies user preference filters (strength, bitterness tolerance, style preferences)
+- Ranks beers by probability of being liked
 
-###### 3. **Basic Recommendations**
-- Filters beers by predicted quality state
-- Returns highest-rated beers within that quality category
-- Simple content-based filtering approach
+###### 3. **Probabilistic Confidence Scores**
+- Provides likelihood estimates for each recommendation
+- Enables confidence-based ranking and filtering
+- Supports uncertainty quantification in taste predictions
 
-##### What It **Doesn't** Really Accomplish:
+##### What the Model Accomplishes Well:
 
-###### 1. **Not True Sequential Modeling**
-- The transition matrix is artificially created using brewery groupings
-- Beer ratings don't naturally form sequences like speech or time series
-- **This is the biggest flaw** - HMMs are meant for sequential data
+###### 1. **Robust Performance**
+- Achieves 75% test accuracy with minimal overfitting
+- Balanced precision and recall (no strong prediction bias)
+- Strong discriminative ability (ROC-AUC: 0.82)
 
-###### 2. **Limited Feature Usage**
-- Only uses ABV, IBU, and style in a very basic way
-- Ignores brewery reputation, beer name, serving size effects
-- The quality scoring is overly simplistic
+###### 2. **Practical Utility**
+- Works with limited user data (cold start problem)
+- Fast training and prediction for real-time recommendations
+- Interpretable results with clear probabilistic reasoning
 
-###### 3. **No User Personalization**
-- Doesn't learn individual user preferences
-- Can't adapt to different taste profiles
-- One-size-fits-all recommendations
+###### 3. **Different Features Integration**
+- Effectively combines continuous features (ABV, IBU, reputation)
+- Handles categorical data (100+ beer styles) through encoding
+- Incorporates engineered features (style popularity, categorized ranges)
 
-##### What It Could Be Improved To Do:
-Better approach - treat beer tasting as a sequence:
-- User's beer journey: Light Lager → Pale Ale → IPA → Stout
-- Hidden states: User preference evolution
-- Observations: Their ratings of different beer types
+##### Model Limitations:
 
-Or model brewery quality over time:
-- Hidden states: Brewery reputation (declining/stable/improving)
-- Observations: Beer ratings from that brewery
-- Transitions: How brewery quality changes over time
+###### 1. **Feature Independence Assumption**
+- Assumes beer characteristics contribute independently to preference
+- May miss important interactions (e.g., ABV-style correlations)
+- Simplifies complex taste relationships
 
+###### 2. **Limited Personalization**
+- No individual user modeling or learning from feedback
+- Basic preference filtering rather than sophisticated user profiling
+- Cannot adapt to changing taste preferences over time
 
-
-##### Honest Assessment:
-This HMM is more of a **proof-of-concept** that demonstrates:
-- How to structure an HMM for a domain problem
-- Basic parameter learning from data
-- Simple recommendation logic
-
-But it's **not particularly effective** because:
-1. Beer recommendation isn't naturally a sequential problem
-2. A simple collaborative filtering or content-based approach would work better
-3. The model artificially forces sequential structure where none exists
-
-##### Better Alternative:
-For the beer recommendation system, it would get better results with:
-- **Content-based filtering** using beer features
-- **Collaborative filtering** if we had user-beer rating pairs  
-- **Hybrid approach** combining multiple signals
-- **Classification model** to predict if a user will like a beer
+##### What Could Be Improved:
+- **Advanced Models**: Random Forest or Gradient Boosting for feature interactions
+- **Enhanced Features**: ABV-IBU ratios, seasonal indicators, complexity scores
+- **User Modeling**: Progressive preference learning and feedback integration
+- **Contextual Factors**: Consider drinking occasion, food pairing, seasonal preferences
 
 ---
 
-## Agent Setup, Data Preprocessing, Training Setup (15pts)
+## Agent Setup, Data Preprocessing, Training Setup 
 
 ### Dataset Exploration & Variable Analysis
 
@@ -273,7 +260,7 @@ P(liked|features) = P(liked) × ∏P(feature_i|liked) / P(features)
 
 ---
 
-## Train Your Model! (5pts)
+## Train Your Model! 
 
 ### Training Implementation
 
@@ -314,7 +301,7 @@ print(f"Model trained successfully with {accuracy:.3f} test accuracy")
 
 ---
 
-## Conclusion/Results (15pts)
+## Conclusion/Results
 
 ### Performance Metrics
 
