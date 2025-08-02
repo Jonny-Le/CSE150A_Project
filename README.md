@@ -7,7 +7,7 @@
 - Vy Dang (PID: A18531908)
 
 **Project Summary:**
-> Predict whether a user will like a beer based on its attributes using a probabilistic (Bayesian) model and provide personalized beer recommendations.
+> Predict whether a user will like a beer based on its attributes using a probabilistic (Bayesian) model and provide personalized beer recommendations. User will input preferences based on alcohol by volume (abv), international bitterness units (bitterness level, ibu), categories of beer they want to enjoy or avoid.
 
 ---
 
@@ -128,7 +128,7 @@ df_processed['bin_rating'] = (df_processed['rating'] >= 3.5).astype(int)
 - **Rationale**: Handles mixed continuous/categorical features, fast training, probabilistic output
 - **Trade-offs**: Assumes feature independence, may miss interaction effects
 
-#### Conclusion 
+## Conclusion 
 
 ![HEAT MAP FOR BEER RATING](image.png)
 Looking at the HMM model I provided, let me explain what it actually accomplishes and its limitations:
