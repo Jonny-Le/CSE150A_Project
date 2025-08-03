@@ -2,9 +2,9 @@
 
 
 **Team Members:**
-- Alexander Tatoian (PID: A18508705)
-- Jonny Le (PID: A16873166)
-- Vy Dang (PID: A18531908)
+- Alexander Tatoian 
+- Jonny Le
+- Vy Dang 
 
 **Project Summary:**
 > Predict whether a user will like a beer based on its attributes using a probabilistic (Bayesian) model and provide personalized beer recommendations. User will input preferences based on alcohol by volume (abv), international bitterness units (bitterness level, ibu), categories of beer they want to enjoy or avoid.
